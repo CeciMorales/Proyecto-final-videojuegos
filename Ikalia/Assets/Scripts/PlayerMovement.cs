@@ -18,10 +18,15 @@ public class PlayerMovement : MonoBehaviour {
     public LayerMask whatIsGround;
 
     private int extraJumps;
-    public int extraJumpsvalue;
+    public int extraJumpsvalue; 
 
     //animation-fall
     private bool justJumped;
+
+    //bullet
+    public GameObject tlacuache;
+    public Transform throwPoint;
+
 
 
     // Use this for initialization
@@ -66,11 +71,17 @@ public class PlayerMovement : MonoBehaviour {
 
         }
 
-        if (justJumped == true)
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            
+
+            GameObject tlacuacheClone = (GameObject)Instantiate(tlacuache, throwPoint.position, throwPoint.rotation);
+
+            tlacuacheClone.transform.localScale = transform.localScale;
+
+            //Instantiate(tlacuache, throwPoint.position, throwPoint.rotation);
 
         }
-       
     }
 
     void Update()
