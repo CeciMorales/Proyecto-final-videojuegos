@@ -45,11 +45,17 @@ public class EnemyMovement : MonoBehaviour {
         {
 
 
-            if (transform.position.y  < collision.transform.position.y)
+            if (transform.position.y + 10 < collision.transform.position.y)
             {
                 enemyAnim.SetBool("isDead", true);
-                
+                DisableEnemy();
             }
+          
+        }
+
+        if(collision.gameObject.tag == "Tlacuache")
+        {
+            DisableEnemy();
         }
 
     }

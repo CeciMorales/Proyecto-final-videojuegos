@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
     public Rigidbody2D playerRigidBody;
     public float speed = 7300.67f;
-    public float jumpSpeed = 1050;
+    public float jumpSpeed = 50;
+
     private float moveInput; //detect wheather or not is left or right
     public Animator playerAnim;
     

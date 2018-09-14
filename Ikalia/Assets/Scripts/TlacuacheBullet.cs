@@ -27,7 +27,7 @@ public class TlacuacheBullet : MonoBehaviour {
 
 	}
 
-    private void OnTriggerEnter2D(Collider2D other)
+     void OnCollisionEnter2D(Collision2D other)
     {
         //when bullet interacts with other collider 2d
         if (other.gameObject.tag  != "Player")
