@@ -44,7 +44,7 @@ public class EnemyMovement : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
 
-            HealthBar.health -= 10f;
+
             if (transform.position.y  < collision.transform.position.y)
             {
                 enemyAnim.SetBool("isDead", true);
