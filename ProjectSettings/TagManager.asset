@@ -13,6 +13,16 @@ TagManager:
   - CheckPointBoss
   - Coin
   - OlmecaRoja
+  - Rollo
+  - Colmillo
+  - Edge
+  - PathAllowed
+  - Rollo
+  - Colmillo
+  - TlacuacheAtaca
+  - TlacuacheRabia
+  - EndLevel
+  - Abismo
   layers:
   - Default
   - TransparentFX

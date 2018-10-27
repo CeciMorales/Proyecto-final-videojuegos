@@ -4,41 +4,17 @@ using UnityEngine;
 
 public class TlacuacheBullet : MonoBehaviour {
 
-    public float ballSpeed;
-    private Rigidbody2D theRB;
+    public float Speed = 0.2f;
 
-    public GameObject ballEffect;
-
-   
-
-	// Use this for initialization
-	void Start () {
-
-        theRB = GetComponent<Rigidbody2D>();
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        //direction
-        theRB.velocity = new Vector2(ballSpeed*transform.localScale.x, 0f);
-		
+        gameObject.transform.Translate(new Vector3(-1 * Speed, 0, 0));
 
-	}
-
-     void OnCollisionEnter2D(Collision2D other)
-    {
-        //when bullet interacts with other collider 2d
-        if (other.gameObject.tag  != "Player")
-        {
-            Instantiate(ballEffect, transform.position, transform.rotation);
-            Destroy(gameObject);
-
-        }
-        
-        
-
-        
     }
 }

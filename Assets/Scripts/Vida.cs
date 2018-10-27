@@ -61,10 +61,16 @@ public class Vida : MonoBehaviour {
             health = health - 2;
             healthBar.fillAmount = (1 / maxHealth) * health;
         }
-
-        if(health<= 0)
+        if (collision.gameObject.CompareTag("Colmillo"))
         {
-            Destroy(gameObject);
+
+            health = health - 4;
+            healthBar.fillAmount = (1 / maxHealth) * health;
+        }
+
+        if (health<= 0)
+        {
+            //Destroy(gameObject);
             
         }
     }

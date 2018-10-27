@@ -20,11 +20,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4571901435096408}
   - component: {fileID: 212220070658421176}
-  - component: {fileID: 114602661713612256}
   - component: {fileID: 114394390536110634}
+  - component: {fileID: 114720944144583106}
+  - component: {fileID: 70710413892430950}
   m_Layer: 0
   m_Name: Bala
-  m_TagString: Untagged
+  m_TagString: Colmillo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,11 +38,26 @@ Transform:
   m_GameObject: {fileID: 1046055572340224}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2359.2756, y: 23.077234, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.31, y: 0.33, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &70710413892430950
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1046055572340224}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 8, y: 1}
+  m_Direction: 0
 --- !u!114 &114394390536110634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,8 +69,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4330c7618a774604496aa18afc58461f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 0.5
---- !u!114 &114602661713612256
+  lifeTime: 5.01
+--- !u!114 &114720944144583106
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,7 +81,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63a92777e13e2c44db1465367b313eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 0.2
+  Speed: 7.01
+  stoppingDistance: 2.04
+  startingDistance: 75
 --- !u!212 &212220070658421176
 SpriteRenderer:
   m_ObjectHideFlags: 1

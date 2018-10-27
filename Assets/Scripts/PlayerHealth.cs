@@ -43,6 +43,12 @@ public class PlayerHealth : MonoBehaviour
 
             colorPlayerHit();
         }
+
+        if (collision.gameObject.CompareTag("Colmillo"))
+        {
+            colorPlayerHit();
+            movePlayerHit(); 
+        }
     }
 
     void movePlayerHit()

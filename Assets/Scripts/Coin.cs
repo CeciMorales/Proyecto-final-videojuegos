@@ -50,7 +50,18 @@ public class Coin : MonoBehaviour
             Debug.Log(col.gameObject.tag);
         }
 
+        if (col.gameObject.CompareTag("pltMov"))
+        {
+            this.transform.parent = col.transform;
+
+        }
+
     }
 
-   
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+    }
+
+
 }

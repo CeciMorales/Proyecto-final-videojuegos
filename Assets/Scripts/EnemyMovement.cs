@@ -57,7 +57,7 @@ public class EnemyMovement : MonoBehaviour {
           
         }
 
-        if(collision.gameObject.tag == "Tlacuache")
+        if(collision.gameObject.tag == "Rollo")
         {
             Instantiate(splash, transform.position, Quaternion.identity);
 
