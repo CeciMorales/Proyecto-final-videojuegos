@@ -23,6 +23,13 @@ TagManager:
   - TlacuacheRabia
   - EndLevel
   - Abismo
+  - Paredes
+  - particula
+  - Jade
+  - door
+  - NubeRoja
+  - RayoAzul
+  - RayoAmarillo
   layers:
   - Default
   - TransparentFX
@@ -34,7 +41,7 @@ TagManager:
   - 
   - Ground
   - Picos
-  - 
+  - Ladder
   - 
   - 
   - 
@@ -57,11 +64,11 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Picos
-    uniqueID: 3529813441
-    locked: 0
   - name: Background
     uniqueID: 124373749
+    locked: 0
+  - name: Picos
+    uniqueID: 3529813441
     locked: 0
   - name: Default
     uniqueID: 0

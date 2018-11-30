@@ -9,9 +9,11 @@ public class Coin : MonoBehaviour
     //public static int collectableQuantity = 0;
     //Text collectableText;
     public int counterCoins;
-   // bool specialTlacuaches;
+    // bool specialTlacuaches;
 
     ParticleSystem collectablePart;
+    private  AudioSource collectableAudio;
+    //public AudioClip SoundToPlay;
     //AudioSource collectableAudio;
     // Use this for initialization
     void Start()
@@ -21,7 +23,7 @@ public class Coin : MonoBehaviour
         //specialTlacuaches = false;
         //collectableText = GameObject.Find("Collectable").GetComponent<Text>();
         collectablePart = GameObject.Find("CoinParticle").GetComponent<ParticleSystem>();
-        //collectableAudio = GetComponentInParent<AudioSource>();
+        collectableAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -31,13 +33,21 @@ public class Coin : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D col)
+
     {
+        
+
         if (col.tag == "Player")
         {
+
+            collectableAudio.Play();
             collectablePart.transform.position = transform.position; //darle la posicion del coleccionable actual
+            
             collectablePart.Play();//Salen las particulas
-            //collectableAudio.Play(); //Suene el sonido
+            
+             //Suene el sonido
             gameObject.SetActive(false); //desaparece el item
+            //AudioSource.PlayClipAtPoint(sound,Camera.main.transform.position,1f);
             //counterCoins += 1;
             //Debug.Log(counterCoins);
             //collectableQuantity++;

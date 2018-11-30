@@ -6,6 +6,7 @@ public class Escalera : MonoBehaviour
 {
     public float speed = 6;
     public Animator playerAnim;
+    public bool isClimbing;
     // Use this for initialization
     void Start()
     {
@@ -22,17 +23,21 @@ public class Escalera : MonoBehaviour
     {
         if (collision.tag == "Player" && Input.GetKey(KeyCode.W))
         {
+            isClimbing = true;
             collision.GetComponent<Rigidbody2D>().velocity = new Vector2(0, speed);
             playerAnim.SetBool("escaleras", true);
         }
         else if (collision.tag == "Player" && Input.GetKey(KeyCode.S))
         {
+
             collision.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -speed);
             playerAnim.SetBool("escaleras", true);
         }
-        else
+        else if (collision.tag == "Player")
         {
-            collision.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            Debug.Log("SII");
+            collision.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
+            collision.GetComponent<Rigidbody2D>().gravityScale = 0;
             playerAnim.SetBool("escaleras", false);
         }
     }

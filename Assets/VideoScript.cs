@@ -8,7 +8,7 @@ using UnityEngine.Video;
 public class VideoScript : MonoBehaviour {
     public RawImage rawimage;
     public VideoPlayer videoplayer;
-    public AudioSource audio;
+    //public AudioSource audio;
 
 
 	// Use this for initialization
@@ -29,6 +29,6 @@ public class VideoScript : MonoBehaviour {
 
         rawimage.texture = videoplayer.texture;
         videoplayer.Play();
-        audio.Play();
+        //audio.Play();
     }
 }

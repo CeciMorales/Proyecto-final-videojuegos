@@ -5,8 +5,8 @@ using UnityEngine;
 public class BulletFlavio : MonoBehaviour {
 
     public float velX = 5f;
-    float velY = 0f;
-    Rigidbody2D rb;
+    float velY = 0f; //only horizontal direction
+    Rigidbody2D rb; 
     ParticleSystem particulas;
 
 
@@ -30,7 +30,11 @@ public class BulletFlavio : MonoBehaviour {
     {
         if (collision.gameObject.CompareTag("Colmillo") || 
             collision.gameObject.CompareTag("Enemy") || 
-            collision.gameObject.CompareTag("OlmecaRoja"))
+            collision.gameObject.CompareTag("OlmecaRoja") ||
+            collision.gameObject.CompareTag("Picos") ||
+            collision.gameObject.CompareTag("pltMov") ||
+            collision.gameObject.CompareTag("Ground") ||
+            collision.gameObject.CompareTag("Paredes"))
         {
 
             particulas.transform.position = transform.position;

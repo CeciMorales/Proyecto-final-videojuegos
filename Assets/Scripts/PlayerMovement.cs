@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour {
 
     //jump
     public bool isGrounded;
+    public bool isMoving;
     public Transform groundCheck;
     public float checkRadius;
     public LayerMask whatIsGround;
@@ -30,8 +31,8 @@ public class PlayerMovement : MonoBehaviour {
     public GameObject rolloRight;
     public GameObject rolloLeft;
     public Vector2 bulletPos;
-    public float fireRate = 0.5f;
-    public float nextFire = 0.0f;
+    public float fireRate = 0.5f; //one bullet in half sec
+    public float nextFire = 0.0f; //count time from the last bullet
 
     public GameObject tlacuacheRabia;
     public GameObject tlacuacheAtaca;
@@ -58,13 +59,27 @@ public class PlayerMovement : MonoBehaviour {
     private bool finnished = false;
 
 
+    public bool canMove;
+    
+    //SONIDOS
+    public AudioSource moneda;
+    public AudioSource soundBala;
 
+    public Transform SpawnBulletPosition;
+    public Transform RollitoUp;
+
+
+    //dialogo con mentor
+    private DialogueManager dMan;
 
     // Use this for initialization
     void Start () {
+        dMan = FindObjectOfType<DialogueManager>();
+
         playerRigidBody = GetComponent<Rigidbody2D>();
         extraJumps = extraJumpsvalue;
         isFlip = false;
+        canMove = true;
 
         imagenMonedas1 = GameObject.Find("Numeros").GetComponent<Image>();
         imagenMonedas2 = GameObject.Find("Numeros1").GetComponent<Image>();
@@ -78,6 +93,10 @@ public class PlayerMovement : MonoBehaviour {
 
         //TIEMPO
         startTime = Time.time;
+        isMoving = false;
+        //Debug.Log("isMoving"+isMoving);
+
+        
 }
 	
 	// Update is called once per frame
@@ -89,11 +108,20 @@ public class PlayerMovement : MonoBehaviour {
 
         if (Input.GetAxis("Horizontal") == 0)
         {
-            
+
             playerAnim.SetBool("isWalking", false);
-            
+            isMoving = false;
+           
+
+
         }
-        else if (Input.GetAxis("Horizontal") < 0)
+        else
+        {
+            isMoving = true;
+           
+        }
+       
+        if (Input.GetAxis("Horizontal") < 0  && canMove)
         {
            
             
@@ -102,17 +130,30 @@ public class PlayerMovement : MonoBehaviour {
             GetComponent<SpriteRenderer>().flipX = true;
             
             isFlip = true;
+            isMoving = true;
+            //Debug.Log("horiz<0: " + isMoving);
+            
+
         }
-        else if (Input.GetAxis("Horizontal") > 0)
+        else if (Input.GetAxis("Horizontal") > 0 && canMove)
         {
             
             playerAnim.SetBool("isWalking", true);
             GetComponent<SpriteRenderer>().flipX = false;
             isFlip = false;
+            isMoving = true;
+           // Debug.Log("horiz>0: " + isMoving);
+
         }
+        else
+        {
+            isMoving = false;
+            //Debug.Log("else: " + isMoving);
+        }
+       
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && canMove)
         {
             //GetComponent<AudioSource>().Play();
             //playerAnim.SetBool("isJumping", true);
@@ -121,11 +162,16 @@ public class PlayerMovement : MonoBehaviour {
             //justJumped = true;
             isGrounded = false;
             //playerAnim.SetTrigger("Jump");
+            isMoving = true;
+         
 
         }
+        else
+        {
+            isMoving = false;
+        }
 
-     
-
+        
         
     }
 
@@ -135,7 +181,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             extraJumps = extraJumpsvalue;
             playerAnim.SetTrigger("idle");
-            playerAnim.SetBool("escaleras", false);
+            
 
         }
         if (Input.GetKeyDown(KeyCode.Space) && extraJumps > 0)
@@ -155,14 +201,28 @@ public class PlayerMovement : MonoBehaviour {
         {
             
             playerAnim.SetBool("isWalking", false);
+            isMoving = true;
 
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow) && Time.time > nextFire)
+        if (Input.GetKey(KeyCode.RightShift) && Time.time > nextFire  && !isMoving)
         {
+            //Debug.Log("Aqui dispara: " + isMoving);
+                nextFire = Time.time + fireRate;
+                playerAnim.SetTrigger("isShooting");
+                fireRollo();
+            
+                
+                
+            
+            
 
+        }
+
+        if(Input.GetKey(KeyCode.W) && Time.time>nextFire )
+        {
             nextFire = Time.time + fireRate;
-            fireRollo();
-
+            playerAnim.SetTrigger("isShooting");
+            ShootArriba();
         }
 
         if (Input.GetKey(KeyCode.X) && Time.time > nextFire && activateTlacuaches == true)
@@ -171,6 +231,7 @@ public class PlayerMovement : MonoBehaviour {
             if (countTlacuachesRabia < numTlacuachesRabia)
             {
                 nextFire = Time.time + fireRate;
+                playerAnim.SetTrigger("isShooting");
                 fireTlacuacheRabia();
                 countTlacuachesRabia++;
 
@@ -182,6 +243,7 @@ public class PlayerMovement : MonoBehaviour {
             if (countTlacuachesAtaca < numTlacuachesAtaca)
             {
                 nextFire = Time.time + fireRate;
+                playerAnim.SetTrigger("isShooting");
                 fireTlacuacheAtaca();
                 countTlacuachesAtaca++;
             }
@@ -202,7 +264,9 @@ public class PlayerMovement : MonoBehaviour {
       
 
     }
-
+   
+       
+    
     public void Finnish()
     {
         finnished = true;
@@ -214,7 +278,7 @@ public class PlayerMovement : MonoBehaviour {
         if (collision.gameObject.CompareTag("Lodo"))
 
         {
-
+            //lodo.Play();
             Debug.Log("Lodo");
             this.speed = 3;
             if (GetComponent<PlayerMovement>().isGrounded)
@@ -261,26 +325,38 @@ public class PlayerMovement : MonoBehaviour {
         }
         if (collision.gameObject.CompareTag("Abismo"))
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 
-
+    
 
     public void fireRollo()
     {
-        bulletPos = transform.position;
+        
+            bulletPos = transform.position;
 
-        if (isFlip == false)
-        {
-            bulletPos += new Vector2(1f, -0.437f);
-            Instantiate(rolloRight, bulletPos, Quaternion.identity);
+            if (isFlip == false)
+            {
+                bulletPos += new Vector2(1f, -0.437f);
+                Instantiate(rolloRight, bulletPos, Quaternion.identity);
+                soundBala.Play();
+
+            }
+            else if (isFlip == true)
+            {
+                bulletPos += new Vector2(-1f, -0.437f);
+                Instantiate(rolloLeft, bulletPos, Quaternion.identity);
+                soundBala.Play();
         }
-        else if (isFlip == true)
-        {
-            bulletPos += new Vector2(-1f, -0.437f);
-            Instantiate(rolloLeft, bulletPos, Quaternion.identity);
-        }
+        
+      
+    }
+
+    public void ShootArriba()
+    {
+        bulletPos = transform.position;
+        Instantiate(RollitoUp, SpawnBulletPosition.position, Quaternion.identity);
     }
 
     public void fireTlacuacheRabia()
@@ -338,6 +414,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             numTlacuachesAtaca = 3;
             numTlacuachesRabia = 3;
+
         }else if (counterCoins >= 10 && counterCoins < 15)
         {
             numTlacuachesAtaca = 2;
@@ -362,6 +439,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if(collision.tag == "Coin")
         {
+            moneda.Play();
             counterCoins++;
             if(counterCoins == 1)
             {
@@ -439,6 +517,7 @@ public class PlayerMovement : MonoBehaviour {
                 imagenMonedas2.sprite = Resources.Load<Sprite>("Sprites/5");
             }
         }
+        
     }
 
 }

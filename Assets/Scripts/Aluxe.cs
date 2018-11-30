@@ -13,7 +13,8 @@ public class Aluxe : MonoBehaviour
     private int bulletsCount;
     public bool enemyHit;
     public GameObject splash;
-
+    public  AudioSource movementAudio;
+    public AudioSource deadAudio;
 
 
     // Use this for initialization
@@ -37,25 +38,29 @@ public class Aluxe : MonoBehaviour
         if (transform.position.x > (initialPosition + 4f))
         {
             canMove = false;
+     
         }
         if (transform.position.x < (initialPosition - 4f))
         {
             canMove = true;
+            
         }
-
 
 
 
         if (canMove)
         {
-            if (Vector2.Distance(transform.position, target.position) < 8 && Vector2.Distance(transform.position, target.position) > 3)
+            if (Vector2.Distance(transform.position, target.position) < 10 && Vector2.Distance(transform.position, target.position) > 3)
             {
                 //(from, to)
                 transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
-
+                movementAudio.Play();
             }
 
         }
+
+
+
 
 
 
@@ -72,9 +77,12 @@ public class Aluxe : MonoBehaviour
 
             colorPlayerHit();
             moveEnemyHit();
+            movementAudio.Stop();
+            deadAudio.Play();
 
             if (bulletsCount == 3)
             {
+                
                 Instantiate(splash, transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }

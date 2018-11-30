@@ -11,7 +11,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MenuPrincipal.unity
     guid: 7aa8cb9a5a55e154ab88f49d30cf083c
+  - enabled: 0
+    path: Assets/Scenes/Escena2.unity
+    guid: 8b2faab3320dfb84c94b1c9ae9f187e0
   - enabled: 1
     path: Assets/Scenes/Nivel1.unity
-    guid: 8b2faab3320dfb84c94b1c9ae9f187e0
+    guid: b49b552c30825eb4193deed0477dd48e
+  - enabled: 1
+    path: Assets/Scenes/Nivel2.unity
+    guid: 2ca5dd025ae2f6a4eb8bcd6803c45a66
+  - enabled: 1
+    path: Assets/Scenes/VideoInicial.unity
+    guid: ffdc9287cb8a586439abd9cf299725ba
+  - enabled: 1
+    path: Assets/Scenes/Intro.unity
+    guid: 46e7828aca4b47243b91755be7510e43
   m_configObjects: {}
